@@ -1,12 +1,12 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2019 <a href="#">Jonatan</a>.</strong>
-  </footer>
+  <strong>Copyright &copy <?= date("Y"); ?> <a href="#">Jonatan</a>.</strong>
+</footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+  <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -23,10 +23,11 @@
 <script src="../assets/template/plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- page script -->
 <script>
-  $(function () {
+  $(function() {
     $("#tables").DataTable();
   });
 </script>
 <script src="../assets/template/native/js/master.js"></script>
 </body>
+
 </html>
