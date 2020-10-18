@@ -19,7 +19,8 @@ if (isset($_POST['submit'])) {
       $count = count($_SESSION['cart']);
       $item_array = array(
         'barang_id' => $_POST['barang_id'],
-        'jumlah' => $_POST['jumlah']
+        'jumlah' => $_POST['jumlah'],
+        'harga' => $_POST['harga']
       );
 
       $_SESSION['cart'][$count] = $item_array;
@@ -27,24 +28,16 @@ if (isset($_POST['submit'])) {
   } else {
     $item_array = array(
       'barang_id' => $_POST['barang_id'],
-      'jumlah' => $_POST['jumlah']
+      'jumlah' => $_POST['jumlah'],
+      'harga' => $_POST['harga']
     );
 
     // Create new session variable
     $_SESSION['cart'][0] = $item_array;
   } //cart belum ada
-
-  // // $invoice = date("Ydmhis");
-  // $result = $conn->query('INSERT INTO transaksi (barang_id,jumlah,harga,total_harga) VALUES("' . $_POST['barang_id'] . '","' . $_POST['jumlah'] . '","' . $_POST['harga'] . '","' . $_POST['total_harga'] . '")');
-
-  // if ($result) {
-  //   $conn->query("UPDATE barang SET jumlah = jumlah - '" . $_POST['jumlah'] . "' WHERE id = '" . $_POST['barang_id'] . "'");
-  //   echo '<script>alert("Item berhasil di tambah")</script>';
-  // } else {
-  //   echo '<script>alert("Item gagal di tambah")</script>';
-  // }
 }
 ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->

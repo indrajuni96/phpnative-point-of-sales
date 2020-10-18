@@ -1,13 +1,8 @@
 <?php
 if (!$_SESSION['username']) header('Location: ../');
-if (isset($_SESSION['delete'])) {
-  $conn->query('DELETE FROM transaksi');
-  unset($_SESSION['delete']);
-}
-// $result = $conn->query("SELECT  a.id, a.barang_id, SUM(a.jumlah) AS jumlah , a.harga, SUM(a.total_harga) AS total_harga, b.nama  FROM transaksi a INNER JOIN barang b ON a.barang_id = b.id GROUP BY a.barang_id");
-
 $result = $conn->query("SELECT * FROM barang");
 ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -57,25 +52,6 @@ $result = $conn->query("SELECT * FROM barang");
             </thead>
             <tbody>
               <?php
-              // $grandTotal = 0;
-              // if($result->num_rows > 0){
-              //   $n = 1;
-              //   while($row = $result->fetch_assoc()){
-              //     echo "<tr>";
-              //     echo "<td>".$n."</td>";
-              //     echo "<td>".$row['nama']."</td>"; 
-              //     echo "<td>Rp. ".number_format($row['harga'])."</td>"; 
-              //     echo "<td>".$row['jumlah']."</td>"; 
-              //     echo "<td>Rp. ".number_format($row['total_harga'])."</td>"; 
-              //     echo "<td> 
-              //           <a href='index.php?act=transaksi_hapus&id=$row[barang_id]' class='btn btn-sm btn-danger'>Hapus</a>
-              //         </td>"; 
-              //     echo "</tr>"  ;
-              //     $n++;
-              //     $grandTotal += $row['total_harga'];
-              //   }
-              // }
-
               $grandTotal = 0;
               $n = 1;
               if (isset($_SESSION['cart'])) {
@@ -88,7 +64,6 @@ $result = $conn->query("SELECT * FROM barang");
                       echo "<td>" . $n . "</td>";
                       echo "<td>" . $row['nama'] . "</td>";
                       echo "<td>Rp. " . number_format($row['harga']) . "</td>";
-                      // echo "<td>" . $row['jumlah'] . "</td>";
                       echo "<td>" . $value['jumlah'] . "</td>";
                       echo "<td>Rp. " . number_format($value['jumlah'] * $row['harga']) . "</td>";
                       echo "<td> 
@@ -96,7 +71,7 @@ $result = $conn->query("SELECT * FROM barang");
                             </td>";
                       echo "</tr>";
                       $n++;
-                      $grandTotal += $value['jumlah'] * $row['harga'];
+                      $grandTotal += $value['jumlah'] * $value['harga'];
                     } //end if
                   } //end foreach
                 } //end while
