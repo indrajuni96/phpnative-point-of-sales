@@ -14,5 +14,4 @@ if (isset($_SESSION['id_user']) && isset($_SESSION['level'])) {
 	}
 }else{
 	echo "Maaf Tidak Bisa Masuk, anda harus login terlebih dahulu...";
-} 
- ?>
+}

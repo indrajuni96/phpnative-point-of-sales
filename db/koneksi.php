@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+define('BASEURL', 'http://localhost/KP/pos');
 
 $servername = "localhost";
 $username = "root";

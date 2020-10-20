@@ -1,24 +1,24 @@
-<?php 
-        require_once("db/koneksi.php");
+<?php
+require_once("db/koneksi.php");
 
-        // cek apakah session id_user dan level sudah ada, apabila ada ke auth.php.
-        if (isset($_SESSION['id_user']) && isset($_SESSION['level']) ) {
-            echo '<script>window.location="auth.php";</script>';
-        }
-          if(isset($_POST['submit'])){
-            $result = $conn->query('SELECT * FROM users WHERE username = "'.$_POST['username'].'"');
-            $row = $result->fetch_assoc();
-            if ($result->num_rows > 0) {
-                if ($row['password'] === sha1($_POST['password'])) {
-                    $_SESSION['username'] = $row['username'];
-                    header('Location: admin/');
-                } else {
-                    echo '<script>alert("Email atau password salah")</script>';
-                }
-            } else {
-                echo '<script>alert("Email atau password salah")</script>';
-            }
-          }
+// cek apakah session id_user dan level sudah ada, apabila ada ke auth.php.
+if (isset($_SESSION['id_user']) && isset($_SESSION['level'])) {
+  echo '<script>window.location="auth.php";</script>';
+}
+if (isset($_POST['submit'])) {
+  $result = $conn->query('SELECT * FROM users WHERE username = "' . $_POST['username'] . '"');
+  $row = $result->fetch_assoc();
+  if ($result->num_rows > 0) {
+    if ($row['password'] === sha1($_POST['password'])) {
+      $_SESSION['username'] = $row['username'];
+      header('Location: admin/');
+    } else {
+      echo '<script>alert("Email atau password salah")</script>';
+    }
+  } else {
+    echo '<script>alert("Email atau password salah")</script>';
+  }
+}
 ?>
 
 <!DOCTYPE html>

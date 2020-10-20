@@ -1,7 +1,11 @@
 <?php
 include '../db/koneksi.php';
-$inv=$_GET['invoice'];
 
+$id_transaksi = $_GET['id_transaksi'];
+$invoice = $_GET['invoice'];
+
+$result = $conn->query("SELECT * FROM transaksi_bayar WHERE id_transaksi = $id_transaksi");
+$grandTotal = $result->fetch_assoc();
 ?>
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -9,7 +13,7 @@ $inv=$_GET['invoice'];
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 <link rel="stylesheet" type="text/css" href="invoice.css">
-<title>Invoice <?=$inv?></title>
+<title>Invoice <?= $invoice ?></title>
 <!--Author      : @arboshiki-->
 <div id="invoice">
 
@@ -24,23 +28,23 @@ $inv=$_GET['invoice'];
     <div class="invoice overflow-auto" id="invoice">
         <div style="min-width: 600px">
             <header>
-            		<div class="row">
-     				<div class="col">
-     					<br>
-     					<br>
-     					<h3>Invoice: <?=$inv?></h3>
-     				</div>
+                <div class="row">
+                    <div class="col">
+                        <br>
+                        <br>
+                        <h3>Invoice: <?= $invoice ?></h3>
+                    </div>
                     <div class="col company-details">
                         <h2 class="name">
                             <a target="_blank" href="https://lobianijs.com">
-                            Amie Kue
+                                Amie Kue
                             </a>
                         </h2>
                         <div>Villa Bekasi indah 2, Ruko edelwies</div>
                         <div>081234567899</div>
                         <div>amiekue@gmail.com</div>
                     </div>
-            		</div>
+                </div>
             </header>
             <main>
                 <table border="0" cellspacing="0" cellpadding="0">
@@ -54,42 +58,34 @@ $inv=$_GET['invoice'];
                         </tr>
                     </thead>
                     <tbody>
-                    	<?php
-                    	$i=0;
-                    	$sql=mysqli_query($conn,"SELECT * from history where invoice = '".$inv."'");
-                    	while ($row=mysqli_fetch_array($sql)) { $i++;
-                    		$barang=mysqli_fetch_array(mysqli_query($conn,"SELECT * from barang where id='".$row['barang_id']."'"));
-                    	?>
-                        <tr>
-                            <td class="no"><?php echo $i; ?></td>
-                            <td class="text-left"><h3><?php echo $barang['nama']; ?></h3><!-- Optimize the site for search engines (SEO) --></td>
-                            <td class="unit">Rp. <?php echo number_format($barang['harga']); ?></td>
-                            <td class="qty"><?php echo $row['jumlah']; ?></td>
-                            <td class="total">Rp. <?php echo number_format($row['total_harga']);?></td>
-                        </tr>
-                    <?php } ?>
+                        <?php
+                        $i = 0;
+                        $transaksi = mysqli_query($conn, "SELECT T.id,T.invoice,T.tanggal,TD.jumlah,TD.harga,B.nama  FROM transaksi AS T INNER JOIN transaksi_detail AS TD ON T.id = TD.id_transaksi INNER JOIN  transaksi_bayar AS TB ON T.id = TB.id_transaksi INNER JOIN  barang AS B ON TD.id_barang =  B.id WHERE T.id = $id_transaksi");
+
+                        while ($row = mysqli_fetch_array($transaksi)) :
+                            $i++;
+                        ?>
+                            <tr>
+                                <td class="no"><?php echo $i; ?></td>
+                                <td class="text-left">
+                                    <h3><?= $row['nama'];  ?></h3>
+                                </td>
+                                <td class="unit">Rp. <?php echo number_format($row['harga']); ?></td>
+                                <td class="qty"><?php echo $row['jumlah']; ?></td>
+                                <td class="total">Rp. <?php echo number_format($row['jumlah'] * $row['harga']); ?></td>
+                            </tr>
+                        <?php endwhile; ?>
                     </tbody>
                     <tfoot>
-                        <!-- <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">SUBTOTAL</td>
-                            <td>$5,200.00</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2"></td>
-                            <td colspan="2">TAX 25%</td>
-                            <td>$1,300.00</td>
-                        </tr> -->
                         <tr>
                             <td colspan="2"></td>
                             <td colspan="2">GRAND TOTAL</td>
-                            <td>Rp. <?php $ngen=mysqli_fetch_array(mysqli_query($conn,"SELECT sum(total_harga) as tot from history where invoice='".$inv."'"));
-                            echo number_format($ngen['tot']);
-                             ?></td>
+
+                            <td>Rp. <?= number_format($grandTotal['total_bayar']) ?></td>
                         </tr>
                     </tfoot>
                 </table>
-        <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
-        <div></div>
+                <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                <div></div>
+        </div>
     </div>
-</div>
