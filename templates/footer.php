@@ -27,7 +27,7 @@
     $("#tables").DataTable();
   });
 </script>
-<script src="<?= BASEURL; ?>/assets/template/native/js/master.js"></script>
+<script src="<?= BASEURL; ?>/public/ajax/master.js"></script>
 </body>
 
 </html>

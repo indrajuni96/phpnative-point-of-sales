@@ -77,6 +77,14 @@
               </a>
             </li>
             <li class="nav-item has-treeview">
+              <a href="index.php?act=jenis_kue" class="nav-link">
+                <i class="nav-icon fas fa-file-signature"></i>
+                <p>
+                  Jenis Kue
+                </p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview">
               <a href="index.php?act=barang" class="nav-link">
                 <i class="nav-icon fas fa-file-signature"></i>
                 <p>
