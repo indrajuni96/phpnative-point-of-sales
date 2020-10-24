@@ -1,7 +1,6 @@
 <?php
 require_once("../../db/koneksi.php");
 $result = $conn->query("SELECT * FROM jenis_barang");
-var_dump($result)
 ?>
 
 <table id="tables" class="table table-bordered table-striped">
@@ -21,10 +20,10 @@ var_dump($result)
         echo "<td>" . $n . "</td>";
         echo "<td>" . $row['jenis'] . "</td>";
         echo "<td>                   
-                     <button type='button' class='btn btn-sm btn-warning' data-dataid='$row[id]' data-toggle='modal' data-target='#ubahJenis'>Ubah</button>
+                     <button type='button' class='btn btn-sm btn-warning edit-jenis' data-id-jenis='$row[id]' data-toggle='modal' data-target='#editJenis'>Ubah</button>
                      
-                                  <a href='index.php?act=barang_hapus&id=$row[id]' class='btn btn-sm btn-danger'>Hapus</a>
-                              </td>";
+                     <button type='button' class='btn btn-sm btn-danger delete-jenis' data-id-jenis='$row[id]' data-toggle='modal' data-target='#deleteJenis'>Hapus</button>
+              </td>";
         echo "</tr>";
         $n++;
       }
